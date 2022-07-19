@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>elaina</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/photon.min.css">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+</head>
+<body>
+    <!-- <div class="window" style="background-image: url('elaina2.jpg');background-size: 100%;"> -->
+    <div class="window">
+         <!-- Header -->
+        <header class="toolbar toolbar-header" style="text-align: center;">
+            <div class="toolbar-actions">
+              <div class="btn-group">
+                <button class="btn btn-default">
+                  <span class="icon icon-home"></span>
+                </button>
+                <button class="btn btn-default">
+                  <span class="icon icon-folder"></span>
+                </button>
+                <button class="btn btn-default active">
+                  <span class="icon icon-cloud"></span>
+                </button>
+                <button class="btn btn-default">
+                  <span class="icon icon-popup"></span>
+                </button>
+                <button class="btn btn-default">
+                  <span class="icon icon-shuffle"></span>
+                </button>
+              </div>
+            </div>
+        </header>
+        <!-- Main -->
+        <div class="window-content" style="filter: opacity(100%);">
+            <div style="width:100%; margin:20px;">
+                <div class="form-group">
+                  <div style="width:85%;float: left;margin-right:4%;"><input id="inputVideo" type="text" class="form-control" placeholder="可以把文件拖拽到这里"></div>
+                  <div><button id="selectVideoButton" class="btn btn-large btn-default">视频</button></div>
+                </div>
+                <div class="form-group">
+                    <div style="width:85%;float: left;margin-right:4%;"><input type="text" class="form-control" placeholder=""></div>
+                    <div><button class="btn btn-large btn-default">输出</button></div>
+                </div>
+                <div class="form-group">
+                    <div style="width:85%;float: left;margin-right:4%;"><input type="text" class="form-control" placeholder="双击清空字幕文件文本框"></div>
+                    <div><button class="btn btn-large btn-default">字幕</button></div>
+                </div>
+                <div class="form-group">
+                    <div style="width:85%;float: left;margin-right:4%;"><label></label></div>
+                    <div><button id="compressButton" style="margin-right:0%;" class="btn btn-large btn-primary">压制</button></div>
+                </div>
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea class="form-control" rows="3"></textarea>
+                </div>
+                <select class="form-control">
+                  <option>Option one</option>
+                  <option>Option two</option>
+                  <option>Option three</option>
+                  <option>Option four</option>
+                  <option>Option five</option>
+                  <option>Option six</option>
+                  <option>Option seven</option>
+                  <option>Option eight</option>
+                </select>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> This is a checkbox
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> This is a checkbox too
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="radios" checked>
+                    Keep your options open
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="radios">
+                    Be sure to remember to check for unknown unknowns
+                  </label>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-form btn-default">Cancel</button>
+                  <button type="submit" class="btn btn-form btn-primary">OK</button>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer class="toolbar toolbar-footer">
+            <div class="toolbar-actions">
+              <button class="btn btn-default">
+                Cancel
+              </button>
+          
+              <button class="btn btn-primary pull-right">
+                Save
+              </button>
+            </div>
+          </footer>
+    </div>
+    <script>
+        // You can also require other files to run in this process
+        require('./renderer.js')
+      </script>
+</body>
+</html>

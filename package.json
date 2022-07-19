@@ -1,0 +1,17 @@
+{
+  "name": "elaina",
+  "version": "1.0.0",
+  "description": "A tool for video convert.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "yukinsnow",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^11.2.0"
+  },
+  "dependencies": {
+    "ffmpeg": "0.0.4"
+  }
+}
