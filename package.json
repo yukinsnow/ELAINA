@@ -9,7 +9,7 @@
   "author": "yukinsnow",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^11.2.0"
+    "electron": "^20.0.1"
   },
   "dependencies": {
     "ffmpeg": "0.0.4"
