@@ -71,9 +71,9 @@ ipcMain.on('open-file-dialog', (event) => {
 
 ipcMain.on('show-video-meta', (event, path) => {
   var ffmpeg = require('fluent-ffmpeg');
-  var ffmpegPath = require('ffmpeg-static-electron');
-
-  ffmpeg.setFfmpegPath = ffmpegPath;
+  var ffmpegPath = require('ffmpeg-static-electron');//built-in ffmpeg binaries
+  console.log(ffmpegPath.path);//ffmpeg binaries path
+  ffmpeg.setFfmpegPath(ffmpegPath.path);
   //var stream = fs.createWriteStream('outputfile.divx');
 
   var command = ffmpeg('/Users/yuki/Downloads/a.avi')
