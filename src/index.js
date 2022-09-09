@@ -58,7 +58,13 @@ const { Stream } = require('stream');
 
 ipcMain.on('open-file-dialog', (event) => {
   dialog.showOpenDialog({
-    properties: ['openFile', 'openDirectory']
+    properties: ['openFile'],
+    filters: [
+      { name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
+      { name: 'Audio', extensions: ['wav', 'mp3', 'aac'] },
+      { name: 'Custom File Type', extensions: ['as'] },
+      { name: 'All Files', extensions: ['*'] }
+    ]
   }).then(result => {
     //console.log(result.canceled)
     const path = result.filePaths[0]

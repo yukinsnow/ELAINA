@@ -14,7 +14,7 @@ compressButton.addEventListener('click', function(e) {
 function OpenDialog()
 {
     ipcRenderer.send('open-file-dialog')
-       ipcRenderer.on('selected-directory', (event, path) => {
+       ipcRenderer.on('selected-item', (event, path) => {
         inputVideo.value = `${path}`
        })
 }
