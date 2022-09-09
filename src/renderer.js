@@ -21,7 +21,7 @@ function OpenDialog()
 
 function ShowVideoMeta()
 {
-    console.log("sss")
     const path = inputVideo.value;
+    console.log(path)
     ipcRenderer.send('show-video-meta', (event, path))
 }
