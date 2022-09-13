@@ -25,7 +25,7 @@ selectVideoButton.addEventListener("click", function (e) {
 
 const compressButton = document.getElementById("compressButton");
 compressButton.addEventListener("click", function (e) {
-  ShowVideoMeta();
+  EncodeVideo();
 });
 
 function OpenDialog() {
@@ -35,8 +35,8 @@ function OpenDialog() {
   });
 }
 
-function ShowVideoMeta() {
+function EncodeVideo() {
   const path = inputVideo.value;
   console.log(path);
-  ipcRenderer.send("show-video-meta", (event, path));
+  ipcRenderer.send("encode-video", (event, path));
 }

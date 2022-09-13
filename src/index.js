@@ -83,7 +83,7 @@ ipcMain.on("open-file-dialog", (event) => {
 });
 
 //compress
-ipcMain.on("show-video-meta", (event, path) => {
+ipcMain.on("encode-video", (event, path) => {
   var ffmpeg = require("fluent-ffmpeg");
   var ffmpegPath = require("ffmpeg-static-electron"); //built-in ffmpeg binaries
   console.log(ffmpegPath.path); //ffmpeg binaries path
@@ -92,6 +92,12 @@ ipcMain.on("show-video-meta", (event, path) => {
 
   var command = ffmpeg("/Users/yuki/Downloads/911.avi")
     .videoCodec("libx264")
+    .videoBitrate()
+    .fps()
+    .audioCodec("libmp3lame")
+    .audioBitrate()
+    .size()
+    .format("mp4")
     .on("error", function (err) {
       console.log("An error occurred: " + err.message);
     })

@@ -12,25 +12,22 @@
   </head>
   <body>
     <!-- <div class="window" style="background-image: url('elaina2.jpg');background-size: 100%;"> -->
-    <div class="window">
+    <div
+      class="window"
+      style="background-image: url('g2.jpg'); background-size: 100%"
+    >
       <!-- Header -->
       <header class="toolbar toolbar-header" style="text-align: center">
         <div class="toolbar-actions">
           <div class="btn-group">
             <button class="btn btn-default">
-              <span id="archiveButton" class="icon icon-archive"></span>
-            </button>
-            <button class="btn btn-default">
               <span id="homeButton" class="icon icon-video"></span>
-            </button>
-            <button class="btn btn-default">
-              <span id="audioButton" class="icon icon-music"></span>
             </button>
           </div>
         </div>
       </header>
       <!-- Main -->
-      <div class="window-content" style="filter: opacity(100%)">
+      <div class="window-content" style="filter: opacity(90%)">
         <div style="width: 100%; margin: 20px">
           <div class="form-group">
             <div style="width: 85%; float: left; margin-right: 4%">
@@ -39,90 +36,178 @@
                 type="text"
                 class="form-control"
                 placeholder="可以把文件拖拽到这里"
+                style="height: 28px"
               />
             </div>
             <div>
-              <button id="selectVideoButton" class="btn btn-large btn-default">
+              <button
+                id="selectVideoButton"
+                class="btn btn-large btn-default"
+                style="height: 28px"
+              >
                 视频
               </button>
             </div>
           </div>
           <div class="form-group">
             <div style="width: 85%; float: left; margin-right: 4%">
-              <input type="text" class="form-control" placeholder="" />
+              <input
+                id="inputAudio"
+                type="text"
+                class="form-control"
+                placeholder="如需替换音频请选择"
+                style="height: 28px"
+              />
             </div>
-            <div><button class="btn btn-large btn-default">输出</button></div>
+            <div>
+              <button
+                id="selectAudioButton"
+                class="btn btn-large btn-default"
+                style="height: 28px"
+              >
+                音频
+              </button>
+            </div>
           </div>
           <div class="form-group">
             <div style="width: 85%; float: left; margin-right: 4%">
               <input
                 type="text"
                 class="form-control"
-                placeholder="双击清空字幕文件文本框"
+                placeholder="设置文件输出路径"
+                style="height: 28px"
               />
             </div>
-            <div><button class="btn btn-large btn-default">字幕</button></div>
-          </div>
-          <div class="form-group">
-            <div style="width: 85%; float: left; margin-right: 4%">
-              <label></label>
-            </div>
             <div>
-              <button
-                id="compressButton"
-                style="margin-right: 0%"
-                class="btn btn-large btn-primary"
-              >
-                压制
+              <button class="btn btn-large btn-default" style="height: 28px">
+                输出
               </button>
             </div>
           </div>
-          <div class="form-group">
-            <label>Description</label>
-            <textarea class="form-control" rows="3"></textarea>
+          <div class="form-group" style="width: 85%">
+            <form
+              action=""
+              method="post"
+              style="margin: 0px; display: inline; height: 28px"
+            >
+              视频编码&nbsp;
+              <select
+                class="form-control"
+                style="margin: 0px; display: inline; width: 70px; height: 28px"
+              >
+                <option>x264</option>
+                <option>x265</option>
+                <option>xvid</option>
+                <option>av1</option>
+                <option>复制</option>
+                <option>无</option>
+              </select>
+              &nbsp;
+            </form>
+            <div style="margin: 0px; display: inline; height: 28px">
+              视频码率&nbsp;
+              <input
+                type="text"
+                class="form-control"
+                style="width: 59px; height: 28px"
+                placeholder="默认"
+              />
+              &nbsp;
+            </div>
+            <div style="margin: 0px; display: inline; height: 28px">
+              编码帧数&nbsp;
+              <input
+                type="text"
+                class="form-control"
+                style="width: 60px; height: 28px"
+                placeholder="默认"
+              />
+            </div>
           </div>
-          <select class="form-control">
-            <option>Option one</option>
-            <option>Option two</option>
-            <option>Option three</option>
-            <option>Option four</option>
-            <option>Option five</option>
-            <option>Option six</option>
-            <option>Option seven</option>
-            <option>Option eight</option>
-          </select>
-          <div class="checkbox">
-            <label> <input type="checkbox" /> This is a checkbox </label>
+          <div class="form-group" style="width: 85%">
+            <form
+              action=""
+              method="post"
+              style="margin: 0px; display: inline; height: 28px"
+            >
+              音频编码&nbsp;
+              <select
+                class="form-control"
+                style="margin: 0px; display: inline; width: 70px; height: 28px"
+              >
+                <option>mp3</option>
+                <option>复制</option>
+                <option>无</option>
+              </select>
+              &nbsp;
+            </form>
+            <div style="margin: 0px; display: inline; height: 28px">
+              音频码率&nbsp;
+              <input
+                type="text"
+                class="form-control"
+                style="width: 59px; height: 28px"
+                placeholder="默认"
+              />
+              &nbsp;
+            </div>
           </div>
-          <div class="checkbox">
-            <label> <input type="checkbox" /> This is a checkbox too </label>
+          <div class="form-group" style="width: 85%">
+            <div style="display: inline; height: 28px">
+              分辨率：&nbsp;
+              <input
+                type="text"
+                class="form-control"
+                style="height: 28px; width: 66px"
+                placeholder="宽度"
+              />
+              &nbsp;x&nbsp;
+              <input
+                type="text"
+                class="form-control"
+                style="height: 28px; width: 66px"
+                placeholder="高度"
+              />
+              &nbsp;
+            </div>
           </div>
-          <div class="radio">
-            <label>
-              <input type="radio" name="radios" checked />
-              Keep your options open
-            </label>
-          </div>
-          <div class="radio">
-            <label>
-              <input type="radio" name="radios" />
-              Be sure to remember to check for unknown unknowns
-            </label>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-form btn-default">
-              Cancel
-            </button>
-            <button type="submit" class="btn btn-form btn-primary">OK</button>
+          <div class="form-group" style="width: 85%">
+            <div style="margin-right: 0%; display: inline">
+              <form
+                action=""
+                method="post"
+                style="margin: 0px; display: inline; height: 28px"
+              >
+                容器&nbsp;&nbsp;
+                <select
+                  class="form-control"
+                  style="display: inline; width: 76px; height: 28px"
+                >
+                  <option>mp4</option>
+                  <option>flv</option>
+                  <option>mov</option>
+                  <option>avi</option>
+                </select>
+              </form>
+            </div>
           </div>
         </div>
       </div>
       <!-- Footer -->
       <footer class="toolbar toolbar-footer">
-        <div class="toolbar-actions">
-          <button class="btn btn-default">Cancel</button>
-
-          <button class="btn btn-primary pull-right">Save</button>
+        <!-- <span class="icon icon-github" style="line-height: 28px;font-size: medium;">
+          yukinsnow</span
+        > -->
+        <div class="toolbar-actions" style="float: right">
+          <button id="extractButton" class="btn btn-mini btn-warning">
+            提取音频
+          </button>
+          <button id="replaceButton" class="btn btn-mini btn-positive">
+            替换音频
+          </button>
+          <button id="compressButton" class="btn btn-mini btn-primary">
+            视频压制
+          </button>
         </div>
       </footer>
     </div>
