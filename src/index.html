@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>elaina</title>
+    <title>ELAINA</title>
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/photon.min.css" />
     <meta
@@ -11,28 +11,29 @@
     />
   </head>
   <body>
-    <!-- <div class="window" style="background-image: url('elaina2.jpg');background-size: 100%;"> -->
     <div
       class="window"
       style="background-image: url('g2.jpg'); background-size: 100%"
     >
       <!-- Header -->
-      <header class="toolbar toolbar-header" style="text-align: center">
-        <div class="toolbar-actions">
-          <div class="btn-group">
-            <button class="btn btn-default">
-              <span id="homeButton" class="icon icon-video"></span>
-            </button>
-          </div>
-        </div>
+      <header
+        class="toolbar toolbar-header"
+        style="
+          text-align: center;
+          font-family: 'Times New Roman', Times, serif;
+          font-size: large;
+          text-shadow: 0px 0px 3px #ffffff;
+        "
+      >
+        ELAINA
       </header>
       <!-- Main -->
-      <div class="window-content" style="filter: opacity(90%)">
+      <div class="window-content" style="filter: opacity(100%)">
         <div style="width: 100%; margin: 20px">
           <div class="form-group">
             <div style="width: 85%; float: left; margin-right: 4%">
               <input
-                id="inputVideo"
+                id="videoInputPath"
                 type="text"
                 class="form-control"
                 placeholder="可以把文件拖拽到这里"
@@ -52,7 +53,7 @@
           <div class="form-group">
             <div style="width: 85%; float: left; margin-right: 4%">
               <input
-                id="inputAudio"
+                id="audioInputPath"
                 type="text"
                 class="form-control"
                 placeholder="如需替换音频请选择"
@@ -72,6 +73,7 @@
           <div class="form-group">
             <div style="width: 85%; float: left; margin-right: 4%">
               <input
+                id="videoOutputPath"
                 type="text"
                 class="form-control"
                 placeholder="设置文件输出路径"
@@ -79,7 +81,11 @@
               />
             </div>
             <div>
-              <button class="btn btn-large btn-default" style="height: 28px">
+              <button
+                id="selectOutputButton"
+                class="btn btn-large btn-default"
+                style="height: 28px"
+              >
                 输出
               </button>
             </div>
@@ -92,35 +98,39 @@
             >
               视频编码&nbsp;
               <select
+                id="videoCodecSelect"
                 class="form-control"
                 style="margin: 0px; display: inline; width: 70px; height: 28px"
               >
-                <option>x264</option>
-                <option>x265</option>
-                <option>xvid</option>
-                <option>av1</option>
-                <option>复制</option>
-                <option>无</option>
+                <option value="libx264">x264</option>
+                <option value="libx265">x265</option>
+                <option value="libxvid">xvid</option>
+                <option value="libaom-av1">av1</option>
+                <option value="copy">复制</option>
               </select>
               &nbsp;
             </form>
             <div style="margin: 0px; display: inline; height: 28px">
               视频码率&nbsp;
               <input
+                id="videoBitrateInput"
                 type="text"
                 class="form-control"
                 style="width: 59px; height: 28px"
                 placeholder="默认"
+                value="2000"
               />
               &nbsp;
             </div>
             <div style="margin: 0px; display: inline; height: 28px">
               编码帧数&nbsp;
               <input
+                id="videoFPSInput"
                 type="text"
                 class="form-control"
                 style="width: 60px; height: 28px"
                 placeholder="默认"
+                value="60"
               />
             </div>
           </div>
@@ -132,22 +142,25 @@
             >
               音频编码&nbsp;
               <select
+                id="audioCodecSelect"
                 class="form-control"
                 style="margin: 0px; display: inline; width: 70px; height: 28px"
               >
-                <option>mp3</option>
-                <option>复制</option>
-                <option>无</option>
+                <option value="libmp3lame">mp3</option>
+                <option value="aac">aac</option>
+                <option value="copy">复制</option>
               </select>
               &nbsp;
             </form>
             <div style="margin: 0px; display: inline; height: 28px">
               音频码率&nbsp;
               <input
+                id="audioBitrateInput"
                 type="text"
                 class="form-control"
                 style="width: 59px; height: 28px"
                 placeholder="默认"
+                value="320"
               />
               &nbsp;
             </div>
@@ -156,17 +169,21 @@
             <div style="display: inline; height: 28px">
               分辨率：&nbsp;
               <input
+                id="resWideInput"
                 type="text"
                 class="form-control"
                 style="height: 28px; width: 66px"
                 placeholder="宽度"
+                value="1920"
               />
               &nbsp;x&nbsp;
               <input
+                id="resHeightInput"
                 type="text"
                 class="form-control"
                 style="height: 28px; width: 66px"
                 placeholder="高度"
+                value="1080"
               />
               &nbsp;
             </div>
@@ -180,6 +197,7 @@
               >
                 容器&nbsp;&nbsp;
                 <select
+                  id="videoFormatSelect"
                   class="form-control"
                   style="display: inline; width: 76px; height: 28px"
                 >
@@ -195,9 +213,12 @@
       </div>
       <!-- Footer -->
       <footer class="toolbar toolbar-footer">
-        <!-- <span class="icon icon-github" style="line-height: 28px;font-size: medium;">
-          yukinsnow</span
-        > -->
+        <span
+          id="logInput"
+          style="margin-left: 1%; line-height: 30px; font-size: medium"
+        >
+          <span class="icon icon-github"></span> yukinsnow</span
+        >
         <div class="toolbar-actions" style="float: right">
           <button id="extractButton" class="btn btn-mini btn-warning">
             提取音频
@@ -205,7 +226,7 @@
           <button id="replaceButton" class="btn btn-mini btn-positive">
             替换音频
           </button>
-          <button id="compressButton" class="btn btn-mini btn-primary">
+          <button id="encodeButton" class="btn btn-mini btn-primary">
             视频压制
           </button>
         </div>
@@ -213,7 +234,7 @@
     </div>
     <script>
       // You can also require other files to run in this process
-      require("./video.js");
+      require("./render.js");
     </script>
   </body>
 </html>

@@ -1,6 +1,5 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
-const fs = require("fs");
 const ffmpeg = require("fluent-ffmpeg");
 const ffmpegPath = require("ffmpeg-static-electron"); //built-in ffmpeg binaries
 console.log(ffmpegPath.path); //ffmpeg binaries path
@@ -18,6 +17,7 @@ const createWindow = () => {
     width: 500,
     height: 650,
     resizable: false,
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -29,7 +29,7 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, "index.html"));
 
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -60,22 +60,56 @@ app.on("activate", () => {
 const { ipcMain, dialog } = require("electron");
 const { Stream } = require("stream");
 
-ipcMain.on("open-file-dialog", (event) => {
+ipcMain.on("open-videofile-dialog", (event) => {
   dialog
     .showOpenDialog({
       properties: ["openFile"],
       filters: [
         { name: "Movies", extensions: ["mkv", "avi", "mp4"] },
-        { name: "Audio", extensions: ["wav", "mp3", "aac"] },
-        { name: "Custom File Type", extensions: ["as"] },
         { name: "All Files", extensions: ["*"] },
       ],
     })
     .then((result) => {
       //console.log(result.canceled)
-      const path = result.filePaths[0];
-      console.log(path);
-      event.sender.send("selected-directory", path);
+      const value = result.filePaths[0];
+      //console.log(value);
+      event.sender.send("selected-video", value);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+ipcMain.on("open-audiofile-dialog", (event) => {
+  dialog
+    .showOpenDialog({
+      properties: ["openFile"],
+      filters: [
+        { name: "Audio", extensions: ["wav", "mp3", "aac"] },
+        { name: "All Files", extensions: ["*"] },
+      ],
+    })
+    .then((result) => {
+      //console.log(result.canceled)
+      const value = result.filePaths[0];
+      //console.log(value);
+      event.sender.send("selected-audio", value);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+ipcMain.on("select-output-dialog", (event) => {
+  dialog
+    .showOpenDialog({
+      properties: ["openDirectory"],
+    })
+    .then((result) => {
+      //console.log(result.canceled)
+      const value = result.filePaths[0];
+      //console.log(value);
+      event.sender.send("selected-output", value);
     })
     .catch((err) => {
       console.log(err);
@@ -83,28 +117,130 @@ ipcMain.on("open-file-dialog", (event) => {
 });
 
 //compress
-ipcMain.on("encode-video", (event, path) => {
-  var ffmpeg = require("fluent-ffmpeg");
-  var ffmpegPath = require("ffmpeg-static-electron"); //built-in ffmpeg binaries
-  console.log(ffmpegPath.path); //ffmpeg binaries path
-  ffmpeg.setFfmpegPath(ffmpegPath.path);
-  //var stream = fs.createWriteStream('outputfile.divx');
+ipcMain.on(
+  "encode-video",
+  (
+    event,
+    videoInput,
+    videoOutput,
+    videoCodec,
+    videoBitrate,
+    videoFPS,
+    audioCodec,
+    audioBitrate,
+    resWide,
+    resHeight,
+    videoFormat,
+    videoName
+  ) => {
+    var ffmpeg = require("fluent-ffmpeg");
+    var ffmpegPath = require("ffmpeg-static-electron"); //built-in ffmpeg binaries
+    var log;
+    //console.log(ffmpegPath.path); //ffmpeg binaries path
+    ffmpeg.setFfmpegPath(ffmpegPath.path);
 
-  var command = ffmpeg("/Users/yuki/Downloads/911.avi")
-    .videoCodec("libx264")
-    .videoBitrate()
-    .fps()
-    .audioCodec("libmp3lame")
-    .audioBitrate()
-    .size()
-    .format("mp4")
+    console.log(
+      "Encode with " +
+        videoCodec +
+        " " +
+        videoBitrate +
+        " " +
+        videoFPS +
+        " " +
+        audioCodec +
+        " " +
+        audioBitrate +
+        " " +
+        resWide +
+        "x" +
+        resHeight +
+        " " +
+        videoFormat +
+        " " +
+        videoName
+    );
+
+    var command = ffmpeg(videoInput)
+      .videoCodec(videoCodec)
+      .videoBitrate(videoBitrate)
+      .fps(videoFPS)
+      .audioCodec(audioCodec)
+      .audioBitrate(audioBitrate)
+      .size(resWide + "x" + resHeight)
+      .format(videoFormat)
+      .on("error", function (err) {
+        log = "编码出错：" + err.message;
+        console.log(log);
+        event.sender.send("send-log", log);
+      })
+      .on("end", function () {
+        log = "编码完成！";
+        console.log(log);
+        event.sender.send("send-log", log);
+      })
+      .save(videoOutput + "/" + videoName + "." + videoFormat);
+
+    (function () {
+      command.on("error", function () {
+        console.log("Ffmpeg has been killed");
+      });
+      command.kill();
+    },
+      60000);
+  }
+);
+
+//Replace-Audio function
+ipcMain.on(
+  "replace-audio",
+  (event, videoInput, audioInput, videoOutput, videoFormat, videoName) => {
+    console.log("Replace " + videoInput + " with " + audioInput);
+    var command = ffmpeg(videoInput)
+      .input(audioInput)
+      .audioCodec("copy")
+      .outputOptions([
+        "-map 0:v:0",
+        "-map 1:a:0", //Merge first input's video stream and second input's audio stream.
+      ])
+      .on("error", function (err) {
+        log = "编码出错：" + err.message;
+        console.log(log);
+        event.sender.send("send-log", log);
+      })
+      .on("end", function () {
+        log = "音频替换完成！";
+        console.log(log);
+        event.sender.send("send-log", log);
+      })
+      .save(videoOutput + "/" + videoName + "_mux." + videoFormat);
+
+    (function () {
+      command.on("error", function () {
+        console.log("Ffmpeg has been killed");
+      });
+      command.kill();
+    },
+      60000);
+  }
+);
+
+//Extract-Audio function
+ipcMain.on("extract-audio", (event, videoInput, videoOutput, videoName) => {
+  console.log("this is out:" + videoOutput);
+  var command = ffmpeg(videoInput)
+    .noVideo()
+    .audioCodec("pcm_s16le")
     .on("error", function (err) {
-      console.log("An error occurred: " + err.message);
+      log = "编码出错：" + err.message;
+      console.log(log);
+      event.sender.send("send-log", log);
     })
     .on("end", function () {
-      console.log("Processing finished!");
+      log = "音频提取完成！";
+      console.log(log);
+      event.sender.send("send-log", log);
     })
-    .save("/Users/yuki/Downloads/911.mp4");
+    .save(videoOutput + "/" + videoName + "_extract.wav");
 
   (function () {
     command.on("error", function () {
@@ -114,29 +250,3 @@ ipcMain.on("encode-video", (event, path) => {
   },
     60000);
 });
-
-//Replace-Audio function
-ipcMain.on("replace-audio", (event, path) => {
-
-  var command = ffmpeg("/Users/yuki/Downloads/9112.mp4") 
-  .input("/Users/yuki/Downloads/a.mp3")
-  .audioCodec("copy")
-  .outputOptions([
-    "-map 0:v:0","-map 1:a:0"//Merge first input's video stream and second input's audio stream.
-  ])
-    .on("error", function (err) {
-      console.log("An error occurred: " + err.message);
-    })
-    .on("end", function () {
-      console.log("Replace finished!");
-    })
-    .save("/Users/yuki/Downloads/911_mux.mp4");
-
-    (function () {
-    command.on("error", function () {
-      console.log("Ffmpeg has been killed");
-    });
-    command.kill();
-  },
-    60000);
-  });
