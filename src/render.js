@@ -1,5 +1,5 @@
 const { ipcRenderer } = require("electron");
-const fs = require("fs");
+const path = require("path");
 
 //Binding
 var videoName = "";
@@ -64,9 +64,9 @@ videoInputPath.addEventListener("drop", (e) => {
 
   if (files && files.length > 0) {
     //获取文件路径
-    var path = files[0].path;
-    console.log("视频输入:", path);
-    videoInputPath.value = path;
+    var pathTemp = files[0].path.split(path.sep).join("/");
+    console.log("视频输入:", pathTemp);
+    videoInputPath.value = pathTemp;
     var pos = videoInputPath.value.lastIndexOf("/");
     videoOutputPath.value = videoInputPath.value.substr(0, pos);
     var videoNameTemp = videoInputPath.value.substr(pos + 1); //824.mp4
@@ -86,9 +86,9 @@ audioInputPath.addEventListener("drop", (e) => {
   const files = e.dataTransfer.files;
 
   if (files && files.length > 0) {
-    var path = files[0].path;
-    console.log("音频输入:", path);
-    audioInputPath.value = path;
+    var pathTemp = files[0].path.split(path.sep).join("/");
+    console.log("音频输入:", pathTemp);
+    audioInputPath.value = pathTemp;
   }
 });
 
@@ -102,9 +102,9 @@ videoOutputPath.addEventListener("drop", (e) => {
   const files = e.dataTransfer.files;
 
   if (files && files.length > 0) {
-    var path = files[0].path;
-    console.log("视频输出:", path);
-    videoOutputPath.value = path;
+    var pathTemp = files[0].path.split(path.sep).join("/");
+    console.log("视频输出:", pathTemp);
+    videoOutputPath.value = pathTemp;
   }
 });
 
@@ -140,20 +140,20 @@ function SelectOutput() {
 }
 
 function EncodeVideo() {
-  var videoInput = videoInputPath.value;
-  var videoOutput = videoOutputPath.value;
-  var videoBitrate = videoBitrateInput.value;
-  var videoFPS = videoFPSInput.value;
-  var audioBitrate = audioBitrateInput.value;
-  var resWide = resWideInput.value;
-  var resHeight = resHeightInput.value;
+  var videoInput = videoInputPath.value.split(path.sep).join("/");
+  var videoOutput = videoOutputPath.value.split(path.sep).join("/");
+  var videoBitrate = videoBitrateInput.value.split(path.sep).join("/");
+  var videoFPS = videoFPSInput.value.split(path.sep).join("/");
+  var audioBitrate = audioBitrateInput.value.split(path.sep).join("/");
+  var resWide = resWideInput.value.split(path.sep).join("/");
+  var resHeight = resHeightInput.value.split(path.sep).join("/");
 
   var videoCodecIndex = videoCodecSelect.selectedIndex;
-  var videoCodec = videoCodecSelect.options[videoCodecIndex].value;
+  var videoCodec = videoCodecSelect.options[videoCodecIndex].value.split(path.sep).join("/");
   var audioCodecIndex = audioCodecSelect.selectedIndex;
-  var audioCodec = audioCodecSelect.options[audioCodecIndex].value;
+  var audioCodec = audioCodecSelect.options[audioCodecIndex].value.split(path.sep).join("/");
   var videoFormatIndex = videoFormatSelect.selectedIndex;
-  var videoFormat = videoFormatSelect.options[videoFormatIndex].value;
+  var videoFormat = videoFormatSelect.options[videoFormatIndex].value.split(path.sep).join("/");
 
   console.log(videoInput + videoOutput);
   if (!(!videoInput && !videoOutput)) {
@@ -182,12 +182,12 @@ function EncodeVideo() {
 }
 
 function ReplaceAudio() {
-  var videoInput = videoInputPath.value;
-  var audioInput = audioInputPath.value;
-  var videoOutput = videoOutputPath.value;
+  var videoInput = videoInputPath.value.split(path.sep).join("/");
+  var audioInput = audioInputPath.value.split(path.sep).join("/");
+  var videoOutput = videoOutputPath.value.split(path.sep).join("/");
 
   var videoFormatIndex = videoFormatSelect.selectedIndex;
-  var videoFormat = videoFormatSelect.options[videoFormatIndex].value;
+  var videoFormat = videoFormatSelect.options[videoFormatIndex].value.split(path.sep).join("/");
 
   if (!(!videoInput && !videoOutput) && audioInput) {
     ipcRenderer.send(
@@ -208,9 +208,9 @@ function ReplaceAudio() {
 }
 
 function ExtractAudio() {
-  var videoInput = videoInputPath.value;
-  var audioInput = audioInputPath.value;
-  var videoOutput = videoOutputPath.value;
+  var videoInput = videoInputPath.value.split(path.sep).join("/");
+  var audioInput = audioInputPath.value.split(path.sep).join("/");
+  var videoOutput = videoOutputPath.value.split(path.sep).join("/");
   if (!(!videoInput && !videoOutput)) {
     ipcRenderer.send(
       "extract-audio",
