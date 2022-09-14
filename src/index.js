@@ -16,6 +16,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 500,
     height: 650,
+    icon: path.join(__dirname, "assets/icons/icon.png"),
     resizable: false,
     autoHideMenuBar: true,
     webPreferences: {
@@ -29,7 +30,7 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, "index.html"));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
