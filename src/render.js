@@ -1,7 +1,7 @@
 const { ipcRenderer } = require("electron");
 const path = require("path");
 
-//Binding
+///Binding
 var videoName = "";
 
 //Input
@@ -57,25 +57,25 @@ const videoFormatSelect = document.getElementById("videoFormatSelect");
 //Drag&Drop
 //VideoInput
 videoInputPath.addEventListener("drop", (e) => {
-  //阻止默认行为
+  //Block default behavior
   e.preventDefault();
-  //获取文件列表
+  //Get file list
   const files = e.dataTransfer.files;
 
   if (files && files.length > 0) {
-    //获取文件路径
+    //Get file path
     var pathTemp = files[0].path.split(path.sep).join("/");
     console.log("视频输入:", pathTemp);
     videoInputPath.value = pathTemp;
-    var pos = videoInputPath.value.lastIndexOf("/");
-    videoOutputPath.value = videoInputPath.value.substr(0, pos);
-    var videoNameTemp = videoInputPath.value.substr(pos + 1); //824.mp4
-    var pos2 = videoNameTemp.lastIndexOf(".");
-    videoName = videoNameTemp.substr(0, pos2);
+    var pos = videoInputPath.value.lastIndexOf("/");//Path split by "/"
+    videoOutputPath.value = videoInputPath.value.substr(0, pos);//get folder path
+    var videoNameTemp = videoInputPath.value.substr(pos + 1); //get xxx.mp4
+    var pos2 = videoNameTemp.lastIndexOf(".");//split by "."
+    videoName = videoNameTemp.substr(0, pos2);//get xxx
   }
 });
 
-//阻止拖拽结束事件默认行为
+//Block drag end event default behavior
 videoInputPath.addEventListener("dragover", (e) => {
   e.preventDefault();
 });
@@ -119,7 +119,7 @@ function SelectVideo() {
     videoInputPath.value = `${value}`;
     var pos = videoInputPath.value.lastIndexOf("/");
     videoOutputPath.value = videoInputPath.value.substr(0, pos);
-    var videoNameTemp = videoInputPath.value.substr(pos + 1); //824.mp4
+    var videoNameTemp = videoInputPath.value.substr(pos + 1);
     var pos2 = videoNameTemp.lastIndexOf(".");
     videoName = videoNameTemp.substr(0, pos2);
   });
@@ -157,7 +157,7 @@ function EncodeVideo() {
 
   console.log(videoInput + videoOutput);
   if (!(!videoInput && !videoOutput)) {
-    //两者不能为空
+    //Determine if both are empty
     ipcRenderer.send(
       "encode-video",
       videoInput,
@@ -185,16 +185,17 @@ function ReplaceAudio() {
   var videoInput = videoInputPath.value.split(path.sep).join("/");
   var audioInput = audioInputPath.value.split(path.sep).join("/");
   var videoOutput = videoOutputPath.value.split(path.sep).join("/");
+  var audioOutput = videoOutput;
 
   var videoFormatIndex = videoFormatSelect.selectedIndex;
   var videoFormat = videoFormatSelect.options[videoFormatIndex].value.split(path.sep).join("/");
 
-  if (!(!videoInput && !videoOutput) && audioInput) {
+  if (!(!videoInput && !audioOutput) && audioInput) {
     ipcRenderer.send(
       "replace-audio",
       videoInput,
       audioInput,
-      videoOutput,
+      audioOutput,
       videoFormat,
       videoName
     );
@@ -213,7 +214,7 @@ function ExtractAudio() {
   var videoOutput = videoOutputPath.value.split(path.sep).join("/");
   if (!(!videoInput && !videoOutput)) {
     ipcRenderer.send(
-      "extract-audio",
+      "export-audio",
       videoInput,
       audioInput,
       videoOutput,

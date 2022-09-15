@@ -16,13 +16,12 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 500,
     height: 650,
-    icon: path.join(__dirname, "assets/icons/icon.png"),
+    icon: "./icons/icon.png",
     resizable: false,
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false,
-      preload: path.join(__dirname, "preload.js"),
+      contextIsolation: false
     },
   });
 
@@ -66,7 +65,7 @@ ipcMain.on("open-videofile-dialog", (event) => {
     .showOpenDialog({
       properties: ["openFile"],
       filters: [
-        { name: "Movies", extensions: ["mkv", "avi", "mp4"] },
+        { name: "Movies", extensions: ["mp4", "avi", "mov","flv","mkv"] },
         { name: "All Files", extensions: ["*"] },
       ],
     })
@@ -142,23 +141,23 @@ ipcMain.on(
 
     console.log(
       "Encode with " +
-        videoCodec +
-        " " +
-        videoBitrate +
-        " " +
-        videoFPS +
-        " " +
-        audioCodec +
-        " " +
-        audioBitrate +
-        " " +
-        resWide +
-        "x" +
-        resHeight +
-        " " +
-        videoFormat +
-        " " +
-        videoName
+      videoCodec +
+      " " +
+      videoBitrate +
+      " " +
+      videoFPS +
+      " " +
+      audioCodec +
+      " " +
+      audioBitrate +
+      " " +
+      resWide +
+      "x" +
+      resHeight +
+      " " +
+      videoFormat +
+      " " +
+      videoName
     );
 
     var command = ffmpeg(videoInput)
@@ -226,8 +225,15 @@ ipcMain.on(
 );
 
 //Extract-Audio function
-ipcMain.on("extract-audio", (event, videoInput, videoOutput, videoName) => {
-  console.log("this is out:" + videoOutput);
+ipcMain.on("export-audio", (event, videoInput, videoOutput, audioOutput, videoName) => {
+
+  //I think this is a bug that i must pass two output to ensure at least one parameter has value.
+  //If I just pass one audioOuput or videoOuput, it will be null.(bug?)
+  //So I need to pass these two parameter, although I just one of them.
+  console.log("this is audio out:" + audioOutput);
+  console.log("this is video out:" + videoOutput);
+
+
   var command = ffmpeg(videoInput)
     .noVideo()
     .audioCodec("pcm_s16le")
@@ -241,7 +247,7 @@ ipcMain.on("extract-audio", (event, videoInput, videoOutput, videoName) => {
       console.log(log);
       event.sender.send("send-log", log);
     })
-    .save(videoOutput + "/" + videoName + "_extract.wav");
+    .save(audioOutput + "/" + videoName + "_extract.wav");
 
   (function () {
     command.on("error", function () {
