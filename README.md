@@ -92,7 +92,7 @@ GPL
 > GitHub [@yukinsnow](https://github.com/yukinsnow) &nbsp;&middot;&nbsp;
 > Twitter [@yukinsnow](https://twitter.com/yukinsnow)  
 > 童心圆 (Illustrator) &nbsp;&middot;&nbsp;
-> bilibili [@yukinsnow](https://github.com/yukinsnow)
+> bilibili [@童心圓](https://space.bilibili.com/358219200)
 
 <!-- Markdown link & img dfn's -->
 [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
