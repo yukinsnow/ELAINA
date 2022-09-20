@@ -21,7 +21,7 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif)
+![screenshot](https://github.com/yukinsnow/ELAINA/blob/main/screenshot.png)
 
 ## Key Features
 
@@ -34,7 +34,7 @@
 
 ## Translate
 The interface of this app is written in Chinese and an English translation is provided here.
-![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif)
+![screenshot](https://github.com/yukinsnow/ELAINA/blob/main/screenshot.png)
 
 ## How To Use
 
