@@ -63,7 +63,7 @@ If you use linux, you can build yourself.
 
 ## Translate
 The interface of this app is written in Chinese and an English translation is provided here.  
-| Chinese      | English |
+| 中文      | English |
 | ----------- | ----------- |
 | 视频         | Video       |
 | 音频         | Audio        |
