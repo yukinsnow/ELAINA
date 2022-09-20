@@ -16,11 +16,11 @@
     "name": "Yukinsnow",
     "email": "yukinsnow@gmail.com"
   },
-  "license": "MIT",
+  "license": "GPL",
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "./src/icons/icon.icns"
+        "icon": "./src/icons/icon"
       },
       "makers": [
         {
