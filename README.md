@@ -100,7 +100,7 @@ The image of Elaina is from the anime ‘Wandering Witch: The Journey of Elaina�
 
 ---
 
-> yukinsnow (programer) &nbsp;&middot;&nbsp;
+> yukinsnow (Programer) &nbsp;&middot;&nbsp;
 > GitHub [@yukinsnow](https://github.com/yukinsnow) &nbsp;&middot;&nbsp;
 > Twitter [@yukinsnow](https://twitter.com/yukinsnow)  
 > 童心圆 (Illustrator) &nbsp;&middot;&nbsp;
