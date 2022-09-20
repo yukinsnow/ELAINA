@@ -1,15 +1,16 @@
 
 <h1 align="center">
   <br>
-  <a href="https://github.com/yukinsnow/ELAINA"><img src="https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.png" alt="ELAINA" width="200"></a>
+  <a href="https://github.com/yukinsnow/ELAINA"><img src="https://github.com/yukinsnow/ELAINA/blob/main/src/icons/icon.png" alt="ELAINA" width="200"></a>
   <br>
   Markdownify
   <br>
 </h1>
 
 <h4 align="center">A simple video encoding, transcoding tool built on top of <a href="http://electron.atom.io" target="_blank">Electron</a>.</h4>
-
+<h4 align="center">
 [![Build Status][travis-image]][travis-url]
+</h4>
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
@@ -21,7 +22,9 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](https://github.com/yukinsnow/ELAINA/blob/main/screenshot.png)
+<h4 align="center">
+<img src="https://github.com/yukinsnow/ELAINA/blob/main/screenshot.png" alt="screenshot" width="500">
+</h4>
 
 ## Key Features
 
@@ -33,8 +36,10 @@
   - Support x86 and arm64.
 
 ## Translate
-The interface of this app is written in Chinese and an English translation is provided here.
-![screenshot](https://github.com/yukinsnow/ELAINA/blob/main/screenshot.png)
+The interface of this app is written in Chinese and an English translation is provided here.  
+<h4 align="center">
+<img src="https://github.com/yukinsnow/ELAINA/blob/main/screenshot.png" alt="screenshot" width="500">
+</h4>
 
 ## How To Use
 
