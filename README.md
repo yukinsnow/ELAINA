@@ -3,7 +3,7 @@
   <br>
   <a href="https://github.com/yukinsnow/ELAINA"><img src="https://github.com/yukinsnow/ELAINA/blob/main/src/icons/icon.png" alt="ELAINA" width="200"></a>
   <br>
-  Markdownify
+  ELAINA
   <br>
 </h1>
 
