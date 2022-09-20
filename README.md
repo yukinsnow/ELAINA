@@ -75,6 +75,7 @@ This software uses the following open source packages:
 
 - [Electron](http://electron.atom.io/)
 - [Node.js](https://nodejs.org/)
+- [electron-forge](https://github.com/electron-userland/electron-forge)
 - [fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg)
 - [ffmpeg-static-electron](https://github.com/pietrop/ffmpeg-static-electron)
 - [photon](https://github.com/connors/photon/)
