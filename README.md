@@ -8,9 +8,10 @@
 </h1>
 
 <h4 align="center">A simple video encoding, transcoding tool built on top of <a href="http://electron.atom.io" target="_blank">Electron</a>.</h4>
-<h4 align="center">
+
+<center>
 [![Build Status][travis-image]][travis-url]
-</h4>
+<center>
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
