@@ -9,9 +9,7 @@
 
 <h4 align="center">A simple video encoding, transcoding tool built on top of <a href="http://electron.atom.io" target="_blank">Electron</a>.</h4>
 
-<h4 align="center">
-[![Build Status](https://app.travis-ci.com/yukinsnow/ELAINA.svg?token=xQBfDUHExzq5p7L364LA&branch=main)](https://app.travis-ci.com/yukinsnow/ELAINA)
-</h4>
+<center><a href="https://app.travis-ci.com/yukinsnow/ELAINA"><img src="https://app.travis-ci.com/yukinsnow/ELAINA.svg?token=xQBfDUHExzq5p7L364LA&branch=main" alt="ELAINA"></center>
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
