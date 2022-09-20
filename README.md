@@ -85,7 +85,9 @@ This software uses the following open source packages:
 
 ## License
 
-GPL
+GPL  
+
+The image of Elaina is from the anime ‘Wandering Witch: The Journey of Elaina’ and this app is for open source non-profit use.
 
 ---
 
