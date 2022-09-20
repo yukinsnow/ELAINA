@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <a href="https://github.com/yukinsnow/ELAINA"><img src="https://github.com/yukinsnow/ELAINA/blob/main/src/icons/icon.png" alt="ELAINA" width="200"></a>
+  <a href="https://github.com/yukinsnow/ELAINA"><img src="https://github.com/yukinsnow/ELAINA/blob/main/src/icons/icon.png" alt="ELAINA" width="100"></a>
   <br>
   ELAINA
   <br>
