@@ -76,6 +76,7 @@ This software uses the following open source packages:
 - [Node.js](https://nodejs.org/)
 - [fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg)
 - [ffmpeg-static-electron](https://github.com/pietrop/ffmpeg-static-electron)
+- [photon](https://github.com/connors/photon/)
 
 ## Related
 
