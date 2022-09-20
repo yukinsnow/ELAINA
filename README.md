@@ -34,12 +34,6 @@
   - Windows, macOS and Linux ready.
   - Support x86 and arm64.
 
-## Translate
-The interface of this app is written in Chinese and an English translation is provided here.  
-<h4 align="center">
-<img src="https://github.com/yukinsnow/ELAINA/blob/main/screenshot.png" alt="screenshot" width="500">
-</h4>
-
 ## How To Use
 
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
@@ -66,6 +60,21 @@ $ npm start
 
 You can [download](https://github.com/amitmerchant1990/electron-markdownify/releases/tag/v1.2.0) the latest installable version of ELAINA for Windows, macOS.
 If you use linux, you can build yourself.
+
+## Translate
+The interface of this app is written in Chinese and an English translation is provided here.  
+| Chinese      | English |
+| ----------- | ----------- |
+| 视频         | Video       |
+| 音频         | Audio        |
+| 输出         | Output       |
+| 编码         | Codec        |
+| 码率         | Bitrate        |
+| 分辨率        | Resolution        |
+| 容器         | Format        |
+| 提取         | Extract        |
+| 替换         | Replace        |
+| 压制         | Encode        |
 
 ## Credits
 
