@@ -9,9 +9,9 @@
 
 <h4 align="center">A simple video encoding, transcoding tool built on top of <a href="http://electron.atom.io" target="_blank">Electron</a>.</h4>
 
-<center>
-[![Build Status][travis-image]][travis-url]
-<center>
+<h4 align="center">
+
+</h4>
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
@@ -97,7 +97,3 @@ The image of Elaina is from the anime ‘Wandering Witch: The Journey of Elaina�
 > Twitter [@yukinsnow](https://twitter.com/yukinsnow)  
 > 童心圆 (Illustrator) &nbsp;&middot;&nbsp;
 > bilibili [@童心圓](https://space.bilibili.com/358219200)
-
-<!-- Markdown link & img dfn's -->
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
