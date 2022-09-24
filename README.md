@@ -58,7 +58,7 @@ $ npm start
 
 ## Download
 
-You can [download](https://github.com/amitmerchant1990/electron-markdownify/releases/tag/v1.2.0) the latest installable version of ELAINA for Windows, macOS.
+You can [download](https://github.com/yukinsnow/ELAINA/releases) the latest installable version of ELAINA for Windows, macOS.  
 If you use linux, you can build yourself.
 
 ## Translate
