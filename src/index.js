@@ -58,19 +58,19 @@ app.on("activate", () => {
 // code. You can also put them in separate files and import them here.
 
 const { ipcMain, dialog } = require("electron");
-const { Stream } = require("stream");
 
 ipcMain.on("open-videofile-dialog", (event) => {
   dialog
     .showOpenDialog({
       properties: ["openFile"],
       filters: [
-        { name: "Movies", extensions: ["mp4", "avi", "mov","flv","mkv"] },
+        { name: "Movies", extensions: ["mp4", "avi", "mov", "flv", "mkv"] },
         { name: "All Files", extensions: ["*"] },
       ],
     })
     .then((result) => {
       //console.log(result.canceled)
+      if (result.canceled) { return; }
       const value = result.filePaths[0];
       //console.log(value);
       event.sender.send("selected-video", value);
@@ -85,12 +85,13 @@ ipcMain.on("open-audiofile-dialog", (event) => {
     .showOpenDialog({
       properties: ["openFile"],
       filters: [
-        { name: "Audio", extensions: ["wav", "mp3", "aac"] },
+        { name: "Audio", extensions: ["wav", "mp3", "aac", "flac", "alac", "aiff"] },
         { name: "All Files", extensions: ["*"] },
       ],
     })
     .then((result) => {
       //console.log(result.canceled)
+      if (result.canceled) { return; }
       const value = result.filePaths[0];
       //console.log(value);
       event.sender.send("selected-audio", value);
@@ -107,6 +108,7 @@ ipcMain.on("select-output-dialog", (event) => {
     })
     .then((result) => {
       //console.log(result.canceled)
+      if (result.canceled) { return; }
       const value = result.filePaths[0];
       //console.log(value);
       event.sender.send("selected-output", value);
@@ -138,36 +140,39 @@ ipcMain.on(
     var log;
     //console.log(ffmpegPath.path); //ffmpeg binaries path
     ffmpeg.setFfmpegPath(ffmpegPath.path);
+    console.log(`Encoding container: [${videoFormat}] -> '${videoName}'`);
+    console.log(`  video: [codec=${videoCodec}, bitrate=${videoBitrate}, fps=${videoFPS}, size=${resWide}x${resHeight}]`);
+    console.log(`  audio: [codec=${audioCodec}, bitrate=${audioBitrate}]`);
+    var output = `${videoOutput}/${videoName}.${videoFormat}`;
+    // avoid overwriting existing files
+    if (require("fs").existsSync(output)) {
+      console.log(`File '${output}' already exists`);
+      output = `${videoOutput}/${videoName}_${videoCodec}_${audioCodec}.${videoFormat}`;
+      console.log(`Writing to '${output}' instead`);
+    }
 
-    console.log(
-      "Encode with " +
-      videoCodec +
-      " " +
-      videoBitrate +
-      " " +
-      videoFPS +
-      " " +
-      audioCodec +
-      " " +
-      audioBitrate +
-      " " +
-      resWide +
-      "x" +
-      resHeight +
-      " " +
-      videoFormat +
-      " " +
-      videoName
-    );
-
-    var command = ffmpeg(videoInput)
+    const command = ffmpeg(videoInput)
       .videoCodec(videoCodec)
-      .videoBitrate(videoBitrate)
-      .fps(videoFPS)
       .audioCodec(audioCodec)
-      .audioBitrate(audioBitrate)
-      .size(resWide + "x" + resHeight)
       .format(videoFormat)
+    
+    if (videoFormat === "mp4") {
+      // Allow MP4 container include FLAC audio
+      command.addOptions(["-strict -2"]);
+    }
+    
+    if (videoCodec !== "copy") {
+      command
+        .videoBitrate(videoBitrate)
+        .fps(videoFPS)
+        .size(resWide + "x" + resHeight)
+    }
+
+    if (audioCodec !== "copy") {
+      command.audioBitrate(audioBitrate)
+    }
+
+    command
       .on("error", function (err) {
         log = "编码出错：" + err.message;
         console.log(log);
@@ -178,7 +183,7 @@ ipcMain.on(
         console.log(log);
         event.sender.send("send-log", log);
       })
-      .save(videoOutput + "/" + videoName + "." + videoFormat);
+      .save(output);
 
     (function () {
       command.on("error", function () {
@@ -194,14 +199,20 @@ ipcMain.on(
 ipcMain.on(
   "replace-audio",
   (event, videoInput, audioInput, videoOutput, videoFormat, videoName) => {
-    console.log("Replace " + videoInput + " with " + audioInput);
-    var command = ffmpeg(videoInput)
+    console.log(`Replacing audio in '${videoInput}' with '${audioInput}' -> '${videoOutput}'`);
+    const command = ffmpeg(videoInput)
       .input(audioInput)
       .audioCodec("copy")
       .outputOptions([
         "-map 0:v:0",
         "-map 1:a:0", //Merge first input's video stream and second input's audio stream.
-      ])
+      ]);
+    if (videoFormat === "mp4") {
+      // Allow MP4 container include FLAC audio
+      command.addOptions(["-strict -2"]);
+    }
+
+    command
       .on("error", function (err) {
         log = "编码出错：" + err.message;
         console.log(log);
@@ -212,7 +223,7 @@ ipcMain.on(
         console.log(log);
         event.sender.send("send-log", log);
       })
-      .save(videoOutput + "/" + videoName + "_mux." + videoFormat);
+      .save(`${videoOutput}/${videoName}_mux.${videoFormat}`);
 
     (function () {
       command.on("error", function () {
@@ -247,7 +258,7 @@ ipcMain.on("export-audio", (event, videoInput, videoOutput, audioOutput, videoNa
       console.log(log);
       event.sender.send("send-log", log);
     })
-    .save(audioOutput + "/" + videoName + "_extract.wav");
+    .save(`${audioOutput}/${videoName}_extract.wav`);
 
   (function () {
     command.on("error", function () {
