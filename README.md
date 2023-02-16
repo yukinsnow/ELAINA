@@ -34,7 +34,16 @@
   - Windows, macOS and Linux ready.
   - Support x86 and arm64.
 
-## How To Use
+## Download & Install
+You can [download](https://github.com/yukinsnow/ELAINA/releases) the latest installable version of ELAINA for Windows or macOS. If you are using Linux, please build from source.
+
+**macOS Troubleshooting**
+If macOS prompts you that `App is damanged, you should move it to the trash`, run the command below in the terminal:
+```bash
+xattr -c /Applications/ELAINA.app
+```
+
+## Build & Development
 
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
@@ -56,12 +65,7 @@ $ npm start
 > If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
 
 
-## Download
-
-You can [download](https://github.com/yukinsnow/ELAINA/releases) the latest installable version of ELAINA for Windows, macOS.  
-If you use linux, you can build yourself.
-
-## Translate
+## Translations
 The interface of this app is written in Chinese and an English translation is provided here.  
 | 中文      | English |
 | ----------- | ----------- |
